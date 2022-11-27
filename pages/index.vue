@@ -47,8 +47,8 @@ function comingSoon() {
               Pokemon Guess 1° versão!
             </h5>
             <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-              Esse site foi criado afim de treinar minhas técnicas de
-              programação, mas acabou ficando bacana e resolvi deixalo online,
+              Esse site foi criado a fim de treinar minhas técnicas de
+              programação, mas acabou ficando bacana e resolvi deixá-lo online,
               divirta-se!
             </p>
           </div>
@@ -145,5 +145,6 @@ body {
     width: 100%;
     height: 70px;
   }
+
 }
 </style>

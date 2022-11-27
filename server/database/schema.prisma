@@ -1,0 +1,45 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+generator client {
+  provider        = "prisma-client-js"
+  binaryTargets   = ["native", "debian-openssl-1.1.x"]
+  previewFeatures = ["fullTextSearch", "fullTextIndex"]
+}
+
+datasource db {
+  provider = "sqlite"
+//   url      = env("DATABASE_URL")
+  url      = "file:./dev.db"
+}
+
+model User {
+  id               Int            @id @default(autoincrement())
+  loginType        String?        @default("email")
+  password         String?
+  email            String?        @unique
+  name             String?
+  username         String?        @unique
+  session          Session[]
+  avatarUrl        String?
+
+}
+
+model Session {
+  id        Int       @id @default(autoincrement())
+  authToken String    @unique
+  user      User      @relation(fields: [userId], references: [id])
+  userId    Int
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+}
+
+
+
+model TestMigration {
+  id          Int      @id @default(autoincrement())
+}
+
+model TestAnotherMigration {
+  id          Int      @id @default(autoincrement())
+}

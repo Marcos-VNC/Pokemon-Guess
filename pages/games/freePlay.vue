@@ -183,7 +183,7 @@
                       alt=""
                       srcset=""
                     />
-                    <span class="flex-1 ml-2 whitespace-nowrap"
+                    <span class="title-desc flex-1 ml-2 whitespace-nowrap"
                       >Generation</span
                     >
                     <span
@@ -225,12 +225,12 @@
                       srcset=""
                     />
 
-                    <span class="flex-1 ml-3 whitespace-nowrap"
+                    <span class="title-desc flex-1 ml-3 whitespace-nowrap"
                       >Description</span
                     >
                     <span
                       v-if="state.currentGuessIndex >= 4"
-                      class="inline-flex items-center justify-center px-4 py-2 ml-3 text-sm font-medium text-gray-500 bg-gray-200 rounded dark:bg-gray-700 dark:text-gray-400"
+                      class="desc inline-flex items-center justify-center px-4 py-2 ml-3 text-sm font-medium text-gray-500 bg-gray-200 rounded dark:bg-gray-700 dark:text-gray-400"
                       >{{ state.pokemon.descricao }}</span
                     >
                   </a>
@@ -255,12 +255,12 @@
                       alt=""
                       srcset=""
                     />
-                    <span v-if="wonGame" class="flex-1 ml-1 whitespace-nowrap"
+                    <span v-if="wonGame" class="title-desc flex-1 ml-1 whitespace-nowrap"
                       >Congrats, you WON!</span
                     >
                     <span
                       v-else-if="lostGame"
-                      class="flex-1 ml-1 whitespace-nowrap"
+                      class="title-desc flex-1 ml-1 whitespace-nowrap"
                       >What a pity, you LOST!</span
                     >
                     <a href="" v-if="wonGame">
@@ -336,46 +336,6 @@ function openTipModal() {
   }
 }
 
-function whatColorIS(pokeonType: String) {
-  if (pokeonType == "fire") {
-    return "red";
-  } else if (pokeonType == "water") {
-    return "red";
-  } else if (pokeonType == "grass") {
-    return "red";
-  } else if (pokeonType == "psychic") {
-    return "red";
-  } else if (pokeonType == "fairy") {
-    return "red";
-  } else if (pokeonType == "poison") {
-    return "red";
-  } else if (pokeonType == "ground") {
-    return "red";
-  } else if (pokeonType == "rock") {
-    return "red";
-  } else if (pokeonType == "electric") {
-    return "red";
-  } else if (pokeonType == "fighting") {
-    return "red";
-  } else if (pokeonType == "normal") {
-    return "red";
-  } else if (pokeonType == "bug") {
-    return "red";
-  } else if (pokeonType == "ice") {
-    return "red";
-  } else if (pokeonType == "flying") {
-    return "red";
-  } else if (pokeonType == "ghost") {
-    return "red";
-  } else if (pokeonType == "dark") {
-    return "red";
-  } else if (pokeonType == "dragon") {
-    return "red";
-  } else if (pokeonType == "steel") {
-    return "red";
-  }
-}
-
 const handleInput = async (key) => {
   if (state.currentGuessIndex >= 6 || wonGame.value) {
     return;
@@ -410,7 +370,7 @@ const handleInput = async (key) => {
       state.guesses[state.currentGuessIndex] += key;
       temp_resp += key;
     }
-    // console.log(state.guesses[0])
+
   }
 };
 
@@ -420,7 +380,7 @@ function aleatorio(min: number, max: number) {
 
 const pokemon_datails = async (name: String, types: any) => {
   await pokemon_api.get(`/pokemon-species/${name}`).then((response_specie) => {
-    console.log(response_specie.data.color.name);
+
     state.pokemon.cor = response_specie.data.color.name;
     state.pokemon.descricao =
       response_specie.data.flavor_text_entries[0].flavor_text;
@@ -473,24 +433,20 @@ const pokemon_datails = async (name: String, types: any) => {
 // onMounted
 
 onMounted(async () => {
-  const id = aleatorio(1, 250);
+  const id = aleatorio(1, 649);
   await pokemon_api.get(`/pokemon/${id}`).then((response) => {
-    console.log(response.data.name);
+
     letterLength.value = response.data.name.length;
-    console.log(letterLength);
+
     state.solution = response.data.name;
     state.pokemon = response.data;
     state.pokemon.sprite = response.data.sprites.front_default;
     state.pokemon.spriteOficial =
       response.data.sprites.other.home.front_default;
-    console.log("id? " + response.data.species.name);
+
 
     pokemon_datails(response.data.name, response.data.types);
   });
-
-  console.log(coresTipos);
-  console.log(tipos);
-  console.log(state.pokemon);
 
   window.addEventListener("keyup", (e) => {
     e.preventDefault();
@@ -507,7 +463,6 @@ onMounted(async () => {
 
 // COMPUTED
 const lostGame = computed(() => {
-  console.log(state.currentGuessIndex);
   if (state.currentGuessIndex >= 6) {
     return true;
   }
@@ -521,10 +476,7 @@ const wonGame = computed(() => {
 </script>
 
 <style>
-@font-face {
-  font-family: pokemonFont;
-  src: url(../fonts/Pokemon_Solid.ttf);
-}
+
 
 * {
   margin: 0;
@@ -534,80 +486,6 @@ const wonGame = computed(() => {
 
 ::-webkit-scrollbar {
   display: none;
-}
-
-.pokebolls .rotate {
-  width: 50px;
-  animation: pokeboll 7s linear infinite;
-  pointer-events: none;
-}
-
-.pokebolls .rotate img {
-  width: 50px;
-  animation: rotating 7s linear infinite;
-}
-.pokebolls {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: absolute;
-  bottom: -60px;
-  /* top: 50%;
-    left: 35%;*/
-  /* transform: translateY(-50%);
-    z-index: 2; */
-  padding-right: 60px;
-  padding-left: 50px;
-}
-
-@keyframes pokeboll {
-  0% {
-    transform: translateY(0);
-    opacity: 0;
-  }
-  50% {
-    opacity: 1;
-  }
-  70% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(-70vh);
-    opacity: 0;
-  }
-}
-
-@keyframes rotating {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-.pokebolls .rotate:nth-child(1) {
-  animation-delay: 2s;
-  width: 30px;
-}
-.pokebolls .rotate:nth-child(2) {
-  animation-delay: 1s;
-}
-.pokebolls .rotate:nth-child(3) {
-  animation-delay: 3s;
-  width: 33px;
-}
-.pokebolls .rotate:nth-child(4) {
-  animation-delay: 4.5s;
-}
-.pokebolls .rotate:nth-child(5) {
-  animation-delay: 6s;
-  width: 28px;
-}
-.pokebolls .rotate:nth-child(6) {
-  animation-delay: 3s;
-  width: 40px;
 }
 
 .pokeball {
@@ -699,6 +577,24 @@ const wonGame = computed(() => {
   86%,
   94% {
     transform: rotate(-4deg);
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  .desc {
+    font-size: 10pt;
+  }
+
+  a .title-desc {
+    display: none !important;
+  }
+}
+
+@media only screen and (max-width: 375px) {
+
+  a .title-desc {
+    font-size: 10pt;
+    margin-right: 5px;
   }
 }
 </style>

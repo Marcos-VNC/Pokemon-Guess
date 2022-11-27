@@ -1,4 +1,39 @@
 <script setup lang="ts">
+// USER ACTIONS
+import { ref } from "@vue/reactivity";
+import { userLogout } from "~/composables/useAuth";
+import { onClickOutside } from "@vueuse/core";
+
+const logout = userLogout;
+const hideActions = ref(true);
+const userActions = ref(null);
+const user = useState("user");
+const initalCheck = await useLoggedIn();
+const isLoggedIn = ref(initalCheck);
+
+defineProps({
+  isLoggedIn: Boolean,
+});
+onClickOutside(userActions, () => (hideActions.value = true));
+
+async function checkIfLoggedIn() {
+  const check = await useLoggedIn();
+  isLoggedIn.value = check;
+}
+
+async function customLogout() {
+  logout();
+  openAndCloseProfile();
+}
+watch(
+  user,
+  async () => {
+    await checkIfLoggedIn();
+  },
+  { deep: true }
+);
+
+// RESPONSIVE ACTIONS
 var isOpen = ref(false);
 var isMobile = ref(false);
 
@@ -26,17 +61,18 @@ const setColorTheme = (newTheme: Theme) => {
 </script>
 
 <template>
-  <nav class="bg-white border-gray-200 px-2 sm:px-4 py-2.5 dark:bg-gray-900">
+  <nav class="bg-gray-50 border-gray-200 px-2 sm:px-4 py-2.5 dark:bg-gray-900">
     <div class="container flex flex-wrap justify-between items-center mx-auto">
       <a href="/" class="flex items-center">
         <img src="/img/logo.png" class="mr-3 h-6 sm:h-11" alt="Flowbite Logo" />
         <span
-          class="self-center text-xl font-semibold whitespace-nowrap dark:text-white"
+          class="title self-center text-xl font-semibold whitespace-nowrap dark:text-white"
           >Pokemon Guess</span
         >
       </a>
       <div class="flex items-center md:order-2">
         <button
+          v-if="isLoggedIn"
           type="button"
           class="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
           id="user-menu-button"
@@ -48,10 +84,26 @@ const setColorTheme = (newTheme: Theme) => {
           <span class="sr-only">Open user menu</span>
           <img
             class="w-8 h-8 rounded-full"
-            src="/img/profile.jpg"
+            v-bind:src="user.avatarUrl"
             alt="user photo"
           />
         </button>
+        <nuxt-link
+          to="/auth/login"
+          v-if="!isLoggedIn"
+          type="button"
+          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+        >
+          Login
+        </nuxt-link>
+        <nuxt-link
+          to="/auth/register"
+          v-if="!isLoggedIn"
+          type="button"
+          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+        >
+          Register
+        </nuxt-link>
         <!-- Dropdown menu -->
         <div
           v-if="isOpen"
@@ -65,12 +117,12 @@ const setColorTheme = (newTheme: Theme) => {
           "
         >
           <div class="py-3 px-4">
-            <span class="block text-sm text-gray-900 dark:text-white"
-              >Bonnie Green</span
-            >
+            <span class="block text-sm text-gray-900 dark:text-white">{{
+              user.username
+            }}</span>
             <span
               class="block text-sm font-medium text-gray-500 truncate dark:text-gray-400"
-              >name@flowbite.com</span
+              >{{ user.email }}</span
             >
           </div>
           <ul class="py-1" aria-labelledby="user-menu-button">
@@ -96,11 +148,13 @@ const setColorTheme = (newTheme: Theme) => {
               >
             </li>
             <li>
-              <a
+              <button
+                @click="customLogout"
                 href="#"
                 class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                >Sign out</a
               >
+                Sign out
+              </button>
             </li>
           </ul>
         </div>
@@ -124,7 +178,7 @@ const setColorTheme = (newTheme: Theme) => {
           <svg
             v-else
             xmlns="http://www.w3.org/2000/svg"
-            class="h-6 w-6 " 
+            class="h-6 w-6"
             viewBox="0 0 20 20 "
             fill="currentColor"
           >
@@ -171,4 +225,23 @@ const setColorTheme = (newTheme: Theme) => {
   </nav>
 </template>
 
-<style></style>
+<style>
+@font-face {
+  font-family: pokemonFont;
+  /* src: url(@/fonts/Pokemon_Solid.ttf); */
+  src: url(@/fonts/Pokemon_Hollow.ttf);
+}
+
+.title {
+  font-family: pokemonFont;
+  font-size: 24pt;
+  margin-top: -15px;
+}
+
+
+@media only screen and (max-width: 375px) {
+  .title {
+    font-size: 17pt !important;
+  }
+}
+</style>
