@@ -433,7 +433,7 @@ const pokemon_datails = async (name: String, types: any) => {
 // onMounted
 
 onMounted(async () => {
-  const id = aleatorio(1, 649);
+  const id = aleatorio(1, 300);
   await pokemon_api.get(`/pokemon/${id}`).then((response) => {
 
     letterLength.value = response.data.name.length;

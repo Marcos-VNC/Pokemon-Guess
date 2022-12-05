@@ -70,7 +70,7 @@ const setColorTheme = (newTheme: Theme) => {
           >Pokemon Guess</span
         >
       </a>
-      <div class="flex items-center md:order-2">
+      <div class="userButtons flex items-center md:order-2">
         <button
           v-if="isLoggedIn"
           type="button"
@@ -92,7 +92,7 @@ const setColorTheme = (newTheme: Theme) => {
           to="/auth/login"
           v-if="!isLoggedIn"
           type="button"
-          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+          class="btnLogAndReg text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-300 font-medium rounded-md text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
         >
           Login
         </nuxt-link>
@@ -100,7 +100,7 @@ const setColorTheme = (newTheme: Theme) => {
           to="/auth/register"
           v-if="!isLoggedIn"
           type="button"
-          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+          class="btnLogAndReg text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-300 font-medium rounded-md text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
         >
           Register
         </nuxt-link>
@@ -238,10 +238,47 @@ const setColorTheme = (newTheme: Theme) => {
   margin-top: -15px;
 }
 
+.userButtons .btnLogAndReg{
+  margin-top: 5px;
+}
+
+@media only screen and (max-width: 425px) {
+  .title {
+    font-size: 17pt;
+  }
+
+  .userButtons .btnLogAndReg{
+    font-size: 12pt;
+    padding: 8px;
+    
+    margin-right: 5px;
+  }
+}
 
 @media only screen and (max-width: 375px) {
   .title {
-    font-size: 17pt !important;
+    font-size: 17pt;
+  }
+
+  .userButtons .btnLogAndReg{
+    font-size: 10pt;
+    padding: 3px;
+    
+    margin-right: 3px;
+  }
+
+}
+
+@media only screen and (max-width: 320px) {
+  .title {
+    font-size: 12pt;
+  }
+
+  .userButtons .btnLogAndReg{
+    font-size: 8pt;
+    padding: 5px;
+    
+    margin-right: 3px;
   }
 }
 </style>

@@ -12,12 +12,6 @@ function comingSoon() {
   }
 }
 
-//! -------------------------  POKEMON API
-
-// const { data } = await useFetch("https://pokeapi.co/api/v2/pokemon?limit=20", {
-//   pick: ["name"],
-// });
-
 // ------------------------- SERVER API
 </script>
 
@@ -44,18 +38,18 @@ function comingSoon() {
             <h5
               class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
             >
-              Pokemon Guess 1° versão!
+              Pokemon Guess 1° version!
             </h5>
             <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-              Esse site foi criado a fim de treinar minhas técnicas de
-              programação, mas acabou ficando bacana e resolvi deixá-lo online,
-              divirta-se!
+              This site was created in order to train my techniques of
+              programming, but it ended up being cool and I decided to leave it online,
+              have a good time!
             </p>
           </div>
         </a>
 
         <div
-          class="h-56 grid grid-cols-3 gap-4 content-center justify-center items-center"
+          class="mainPanel h-56 grid grid-cols-3 gap-4 content-center justify-center items-center"
         >
           <div class="text-center">
             <button
@@ -140,11 +134,32 @@ body {
   list-style-type: none;
 }
 
-@media screen and (max-width: 600px) {
+.mainPanel button {
+  text-align: center;
+  width: 100%;
+  height: 70px;
+}
+
+/* @media screen and (max-width: 600px) {
   .customButton {
     width: 100%;
     height: 70px;
   }
+} */
 
+@media only screen and (max-width: 375px) {
+  .mainPanel button {
+    font-size: 11pt;
+    width: 100%;
+    height: 70px;
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  .mainPanel button {
+    font-size: 9pt;
+    width: 100%;
+    height: 60px;
+  }
 }
 </style>
