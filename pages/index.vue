@@ -81,11 +81,13 @@ function comingSoon() {
             </button>
           </div>
           <div class="text-center">
-            <button
-              class="bg-red-600 hover:bg-red-400 text-white font-bold py-2 px-2 border-b-4 border-red-900 hover:border-red-500 rounded"
-            >
-              About the Project
-            </button>
+            <a href="/aboutTheProject">
+              <button
+                class="bg-red-600 hover:bg-red-400 text-white font-bold py-2 px-2 border-b-4 border-red-900 hover:border-red-500 rounded"
+              >
+                About the Project
+              </button>
+            </a>
           </div>
           <div class="text-center">
             <button

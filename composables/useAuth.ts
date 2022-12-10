@@ -49,13 +49,14 @@ export async function registerWithEmail(
   username: string,
   name: string,
   email: string,
-  password: string
+  password: string,
+  avatarUrl: string
 ): Promise<FormValidation> {
 
   try {
     const { data, error } = await useFetch<ISession>('/api/auth/register', {
       method: 'POST',
-      body: { data: { username, name, email, password } },
+      body: { data: { username, name, email, password, avatarUrl } },
       server: false,
       key: username + name + email + password
     })

@@ -5,14 +5,14 @@
     >
       <a
         href="#"
-        class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
+        class="flex items-center mb-6 text-lg font-semibold text-gray-900 dark:text-white"
       >
         <img
-          class="w-8 h-8 mr-2"
-          src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg"
+          class="w-16 h-16 mr-2"
+          src="/img/prof_oak.png"
           alt="logo"
         />
-        Flowbite
+        Do you want to be a pokemon master?
       </a>
       <div
         class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700"
@@ -21,7 +21,7 @@
           <h1
             class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white"
           >
-            Create and account
+            Who are you?
           </h1>
           <form
             v-on:submit.prevent
@@ -74,6 +74,17 @@
                 required
               />
             </div>
+            <div>
+              <input
+                v-model="avatarUrl"
+                type="url"
+                name="avatarUrl"
+                id="avatarUrl"
+                placeholder="https://img.icons8.com/color/48/null/charmander.png"
+                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                required
+              />
+            </div>
 
             <button
               @click.prevent="postRegisterForm"
@@ -104,12 +115,13 @@ const email = ref(null);
 const password = ref(null);
 const username = ref(null);
 const name = ref(null);
+const avatarUrl = ref(null);
 const errors = ref(new Map())
 let response = ref<FormValidation>({ hasErrors: false })
 
 
 async function postRegisterForm() {
-  response.value = await registerWithEmail(username.value, name.value, email.value, password.value);
+  response.value = await registerWithEmail(username.value, name.value, email.value, password.value, avatarUrl.value);
   errors.value = response.value.errors
 };
 

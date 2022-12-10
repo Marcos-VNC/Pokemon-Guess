@@ -12,4 +12,5 @@ export type RegistationRequest = {
   username?: string;
   email?: string;
   password?: string;
+  avatarUrl?: string;
 };

@@ -32,6 +32,7 @@ export async function createUser(data: IUser) {
       username: data.username,
       name: data.name,
       email: data.email,
+      avatarUrl: data.avatarUrl,
       loginType: data.loginType,
       password: data.password,
     },

@@ -23,6 +23,7 @@ export default async (event: H3Event) => {
     username: data.username,
     name: data.name,
     email: data.email,
+    avatarUrl: data.avatarUrl,
     loginType: 'email',
     password: encryptedPassword
   }
